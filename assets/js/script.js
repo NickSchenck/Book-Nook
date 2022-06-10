@@ -14,9 +14,9 @@ fetch(apiurl)
         return fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
     })
     .then(function(reponse) {
-        console.log(reponse.json());
+        return reponse.json();
     })
-    // .then(function(data) {
-    //     console.log(data);
-    //     console.log("help");
-    // })
+    .then(function(data) {
+        console.log(data);
+        console.log("help");
+    })
