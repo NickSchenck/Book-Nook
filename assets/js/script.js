@@ -20,9 +20,9 @@ async function callApiPromise(bookTitle) {
 
     // loop through to produce 5 books from google api and fetch random cocktail
     for(let i = 0; i < 5; i++) {
-        console.log(googleJson);
+        // TODO: store data in cardObj
         cocktailDbResponse = await fetch(cocktailDbApi);
         cocktailDbJson = await cocktailDbResponse.json();
-        console.log(cocktailDbJson);
+        // TODO: store data in cardObj
     }
 }
