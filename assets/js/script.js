@@ -105,6 +105,8 @@ function renderSearchResults(displayObj) {
     let bookContainerEl = document.createElement("div");
     let drinkContainerEl = document.createElement("div");
 
+    containerEl.setAttribute("class", "result-container");
+
     let bookInfoEl = document.createElement("div");
     let bookchoiceEl = document.createElement('button');
 
