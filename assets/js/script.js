@@ -2,6 +2,7 @@ var tbrArray;
 var displayArray = [];
 
 let formEl = document.querySelector("#form");
+let searchResultEl = document.querySelector("#search-results");
 
 // object to house book and drink combo info
 function cardObj(bookObj, drinkObj) {
@@ -24,16 +25,66 @@ function cardObj(bookObj, drinkObj) {
 function formSubmitHandler(event) {
     let tag = event.target;
     let inputEl = document.querySelector(".pure-input-rounded");
+    displayArray = [];
     
     if(tag.id === "submitButton") {
         callApiPromise(inputEl.value);
-        console.log(displayArray);
         inputEl.value = "";
     }
 
     event.preventDefault();
-}
+};
 
+/*
+###### Rendering
+*/
+
+function renderSearchResults() {
+    let containerEl = document.createElement("div");
+    let leftContainerEl = document.createElement("div");
+    let rightContainerEl = document.createElement("div");
+
+    containerEl.classList = "";
+    leftContainerEl.classList = "";
+    rightContainerEl.classList = "";
+
+    containerEl.setAttribute("id", "search-container");
+    leftContainerEl.setAttribute("id", "left-search-container");
+    rightContainerEl.setAttribute("id", "right-search-container");
+
+    let bookTitleEl = document.createElement("h3");
+    let bookAuthorEl = document.createElement("h4");
+    let bookDescEl = document.createElement("p");
+    let drinkNameEl = document.createElement("h3");
+    let drinkIngredientsEl = document.createElement("p");
+    let drinkMesEl = document.createElement("p");
+    let drinkInstructEl = document.createElement("p");
+
+    bookTitleEl.textContent = displayArray[0].bookTitle;
+    bookAuthorEl.textContent = displayArray[0].bookAuthor;
+    bookDescEl.textContent = displayArray[0].bookDescription;
+    drinkNameEl.textContent = displayArray[0].drinkName;
+    drinkIngredientsEl.textContent = displayArray[0].drinkIngredients.toString();
+    drinkMesEl.textContent = displayArray[0].drinkMeasurements.toString();
+    drinkInstructEl.textContent = displayArray[0].drinkInstructions;
+
+    leftContainerEl.appendChild(bookTitleEl);
+    leftContainerEl.appendChild(bookAuthorEl);
+    leftContainerEl.appendChild(bookDescEl);
+    rightContainerEl.appendChild(drinkNameEl);
+    rightContainerEl.appendChild(drinkIngredientsEl);
+    rightContainerEl.appendChild(drinkMesEl);
+    rightContainerEl.appendChild(drinkInstructEl);
+
+    containerEl.appendChild(leftContainerEl);
+    containerEl.appendChild(rightContainerEl);
+
+    searchResultEl.appendChild(containerEl);
+};
+
+/*
+###### API call
+*/
 
 // call to fetch information from google books api and cocktail db api
 async function callApiPromise(bookTitle) {
@@ -54,6 +105,8 @@ async function callApiPromise(bookTitle) {
             
             displayArray.push(new cardObj(googleJson.items[i], cocktailDbJson.drinks[0]));
         }
+
+        await renderSearchResults();
     } catch(error) {
         console.log("error in callPromiseApi " + error);
     }
@@ -71,6 +124,10 @@ function getDrinkPropertyArr(obj, property) {
 
     return targetArr;
 };
+
+/*
+###### Local Storge 
+*/
 
 // loads tbr array and if undefined initialize array
 function loadTrbArray() {
