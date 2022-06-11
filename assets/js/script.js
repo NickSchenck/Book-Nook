@@ -16,7 +16,7 @@ function cardObj(bookObj, drinkObj) {
     this.drinkIngredients = getDrinkPropertyArr(drinkObj, "strIngredient");
     this.drinkMeasurements = getDrinkPropertyArr(drinkObj, "strMeasure");
     this.drinkInstructions = drinkObj.strInstructions;
-    
+
 }
 
 /*
@@ -41,20 +41,27 @@ function formSubmitHandler(event) {
 */
 
 function renderSearchResults() {
+
+    searchResultEl.innerHTML = "";
+
     let containerEl = document.createElement("div");
     let leftContainerEl = document.createElement("div");
     let rightContainerEl = document.createElement("div");
 
-    let bookInfoEl=document.createElement("div");
-    let bookchoiceEl=document.createElement('button')
-    
-    bookchoiceEl.textContent='TBR ?'
+    let bookInfoEl = document.createElement("div");
+    let bookchoiceEl = document.createElement('button')
+
+    bookchoiceEl.textContent = 'TBR ?'
     bookchoiceEl.setAttribute('id', 'add_book')
+    // #########################add button event#################
+    leftContainerEl.addEventListener('click', TBR);
 
     let bookTitleEl = document.createElement("h3");
+    bookTitleEl.setAttribute('id', 'book')
     let bookAuthorEl = document.createElement("h4");
+    bookAuthorEl.setAttribute('id', "author")
     let bookDescEl = document.createElement("p");
-    let bookImg= document.createElement('img');
+    let bookImg = document.createElement('img');
 
     let drinkImg = document.createElement('img');
     let drinkNameEl = document.createElement("h3");
@@ -65,8 +72,8 @@ function renderSearchResults() {
     bookTitleEl.textContent = displayArray[0].bookTitle;
     bookAuthorEl.textContent = displayArray[0].bookAuthor;
     bookDescEl.textContent = displayArray[0].bookDescription;
-    bookImg.src=displayArray[0].bookImageUrl;
-   
+    bookImg.src = displayArray[0].bookImageUrl;
+
 
     drinkImg.src = displayArray[0].drinkImageUrl;
     drinkNameEl.textContent = displayArray[0].drinkName;
@@ -78,12 +85,12 @@ function renderSearchResults() {
     leftContainerEl.appendChild(bookAuthorEl);
     leftContainerEl.appendChild(bookDescEl);
     leftContainerEl.appendChild(bookImg);*/
-    bookInfoEl.appendChild( bookTitleEl);
-    bookInfoEl.appendChild( bookAuthorEl)
-    bookInfoEl.appendChild( bookDescEl)
-    bookInfoEl.appendChild( bookImg)
-    
-   
+    bookInfoEl.appendChild(bookTitleEl);
+    bookInfoEl.appendChild(bookAuthorEl)
+    bookInfoEl.appendChild(bookDescEl)
+    bookInfoEl.appendChild(bookImg)
+
+
     rightContainerEl.appendChild(drinkImg)
     rightContainerEl.appendChild(drinkNameEl);
     rightContainerEl.appendChild(drinkIngredientsEl);
@@ -110,6 +117,38 @@ function renderSearchResults() {
 
     searchResultEl.appendChild(containerEl);
 };
+
+/*
+###### TBR ls add
+*/
+
+function TBR(event) {
+
+    event.preventDefault();
+    let ListEl = document.querySelector('#TBR-list');
+    let bookname = document.querySelector('#book');
+    let author = document.querySelector('#author');
+
+    let TBREl = document.createElement('li');
+    TBREl.classList.add('pure-menu-item');
+    TBREl.textContent = bookname.textContent + ' by ' + author.textContent
+
+    ListEl.appendChild(TBREl);
+
+    
+
+    //delete button
+    var deleteButtonEl = document.createElement("button");
+    deleteButtonEl.textContent = "Delete";
+    TBREl.appendChild(deleteButtonEl);
+
+
+    ListEl.addEventListener('click',function(event){
+        event.target.closest('.pure-menu-item').remove();
+        
+    })
+}
+
 
 /*
 ###### API call
@@ -176,3 +215,4 @@ function saveTbrArray() {
 
 // event listenters
 formEl.addEventListener("click", formSubmitHandler);
+
