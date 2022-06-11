@@ -1,3 +1,4 @@
 # Book-Nook
-(https://www.googleapis.com/books/)
-(https://www.thecocktaildb.com/)
+
+http://api-doc.axesso.de/
+https://openlibrary.org/developers/api

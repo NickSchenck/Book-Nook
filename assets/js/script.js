@@ -16,7 +16,6 @@ function cardObj(bookObj, drinkObj) {
     this.drinkIngredients = getDrinkPropertyArr(drinkObj, "strIngredient");
     this.drinkMeasurements = getDrinkPropertyArr(drinkObj, "strMeasure");
     this.drinkInstructions = drinkObj.strInstructions;
-    
 }
 
 /*
@@ -27,8 +26,8 @@ function formSubmitHandler(event) {
     let tag = event.target;
     let inputEl = document.querySelector(".pure-input-rounded");
     displayArray = [];
-
-    if (tag.id === "submitButton") {
+    
+    if(tag.id === "submitButton") {
         callApiPromise(inputEl.value);
         inputEl.value = "";
     }
@@ -44,14 +43,6 @@ function renderSearchResults() {
     let containerEl = document.createElement("div");
     let leftContainerEl = document.createElement("div");
     let rightContainerEl = document.createElement("div");
-
-    containerEl.classList = "";
-    leftContainerEl.classList = "";
-    rightContainerEl.classList = "";
-
-    containerEl.setAttribute("id", "search-container");
-    leftContainerEl.setAttribute("id", "left-search-container");
-    rightContainerEl.setAttribute("id", "right-search-container");
 
     let bookTitleEl = document.createElement("h3");
     let bookAuthorEl = document.createElement("h4");
@@ -80,6 +71,17 @@ function renderSearchResults() {
     rightContainerEl.appendChild(drinkNameEl);
     rightContainerEl.appendChild(drinkIngredientsEl);
     rightContainerEl.appendChild(drinkMesEl);
+    rightContainerEl.appendChild(drinkInstructEl);    drinkNameEl.textContent = displayArray[0].drinkName;
+    drinkIngredientsEl.textContent = displayArray[0].drinkIngredients.toString();
+    drinkMesEl.textContent = displayArray[0].drinkMeasurements.toString();
+    drinkInstructEl.textContent = displayArray[0].drinkInstructions;
+
+    leftContainerEl.appendChild(bookTitleEl);
+    leftContainerEl.appendChild(bookAuthorEl);
+    leftContainerEl.appendChild(bookDescEl);
+    rightContainerEl.appendChild(drinkNameEl);
+    rightContainerEl.appendChild(drinkIngredientsEl);
+    rightContainerEl.appendChild(drinkMesEl);
     rightContainerEl.appendChild(drinkInstructEl);
 
     containerEl.appendChild(leftContainerEl);
@@ -105,17 +107,16 @@ async function callApiPromise(bookTitle) {
         let googleJson = await googleResponse.json();
 
         // loop through to produce 5 books from google api and fetch random cocktail
-        for (let i = 0; i < 5; i++) {
+        for(let i = 0; i < 5; i++) {
             cocktailDbResponse = await fetch(cocktailDbApi);
             cocktailDbJson = await cocktailDbResponse.json();
-
+            
             displayArray.push(new cardObj(googleJson.items[i], cocktailDbJson.drinks[0]));
         }
 
         await renderSearchResults();
-    } catch (error) {
+    } catch(error) {
         console.log("error in callPromiseApi " + error);
-        alert("don't drink before type the book's name");
     }
 };
 
@@ -124,7 +125,7 @@ function getDrinkPropertyArr(obj, property) {
     let targetArr = [];
     let index = 1;
 
-    while (obj[property + index] !== null) {
+    while(obj[property + index] !== null) {
         targetArr.push(obj[property + index]);
         index++;
     }
@@ -138,10 +139,10 @@ function getDrinkPropertyArr(obj, property) {
 
 // loads tbr array and if undefined initialize array
 function loadTrbArray() {
-    if (localStorage.getItem("book-nook-tbr")) {
+    if(localStorage.getItem("book-nook-tbr")) {
         tbrArray = JSON.parse(localStorage.getItem("book-nook-tbr"));
-    }
-    if (tbrArray === undefined) {
+    } 
+    if(tbrArray === undefined) {
         tbrArray = [];
     }
 };
