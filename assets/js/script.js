@@ -19,6 +19,10 @@ function cardObj(bookObj, drinkObj) {
 
 }
 
+window.onload = function() {
+    loadTrbArray();
+};
+
 /*
 #############Event Handlers
 */
@@ -37,24 +41,72 @@ function formSubmitHandler(event) {
 };
 
 /*
+###### TBR ls add
+*/
+
+function tbrEventHandler(event) {
+
+    if(event.target.tagName === "BUTTON") {
+        event.preventDefault();
+        let ListEl = document.querySelector('#TBR-list');
+        let bookname = document.querySelector('#book');
+        let author = document.querySelector('#author');
+        let drink = document.querySelector("#drink-name");
+
+        let TBREl = document.createElement('li');
+        TBREl.classList.add('pure-menu-item');
+        TBREl.textContent = bookname.textContent + ' by ' + author.textContent
+
+        ListEl.appendChild(TBREl);
+
+        // add to tbr array
+        for(let displayObj of displayArray) {
+            if(displayObj.drinkName === drink.textContent) {
+                tbrArray.push(displayObj);
+            }
+        }
+        
+
+        //delete button
+        var deleteButtonEl = document.createElement("button");
+        deleteButtonEl.textContent = "Delete";
+        TBREl.appendChild(deleteButtonEl);
+
+
+        ListEl.addEventListener('click',function(event){
+            if(event.target.tagName === "BUTTON") {
+                event.target.closest('.pure-menu-item').remove();
+
+                // removes from tbr array
+                for(let i = 0; i < tbrArray.length; i++) {
+                    if(tbrArray[i].drinkName === drink.textContent) {
+                        tbrArray.splice(i, 1);
+                    }
+                }
+                saveTbrArray();
+            }
+        });
+
+        saveTbrArray();
+    }
+};
+
+/*
 ###### Rendering
 */
 
-function renderSearchResults() {
-
-    searchResultEl.innerHTML = "";
+function renderSearchResults(displayObj) {
 
     let containerEl = document.createElement("div");
-    let leftContainerEl = document.createElement("div");
-    let rightContainerEl = document.createElement("div");
+    let bookContainerEl = document.createElement("div");
+    let drinkContainerEl = document.createElement("div");
 
     let bookInfoEl = document.createElement("div");
-    let bookchoiceEl = document.createElement('button')
+    let bookchoiceEl = document.createElement('button');
 
-    bookchoiceEl.textContent = 'TBR ?'
-    bookchoiceEl.setAttribute('id', 'add_book')
-    // #########################add button event#################
-    leftContainerEl.addEventListener('click', TBR);
+    bookchoiceEl.textContent = 'TBR ?';
+    bookchoiceEl.setAttribute('id', 'add_book');
+
 
     let bookTitleEl = document.createElement("h3");
     bookTitleEl.setAttribute('id', 'book')
@@ -69,85 +121,39 @@ function renderSearchResults() {
     let drinkMesEl = document.createElement("p");
     let drinkInstructEl = document.createElement("p");
 
-    bookTitleEl.textContent = displayArray[0].bookTitle;
-    bookAuthorEl.textContent = displayArray[0].bookAuthor;
-    bookDescEl.textContent = displayArray[0].bookDescription;
-    bookImg.src = displayArray[0].bookImageUrl;
+    bookTitleEl.textContent = displayObj.bookTitle;
+    bookAuthorEl.textContent = displayObj.bookAuthor;
+    bookDescEl.textContent = displayObj.bookDescription;
+    bookImg.src = displayObj.bookImageUrl;
 
 
-    drinkImg.src = displayArray[0].drinkImageUrl;
-    drinkNameEl.textContent = displayArray[0].drinkName;
-    drinkIngredientsEl.textContent = displayArray[0].drinkIngredients.toString();
-    drinkMesEl.textContent = displayArray[0].drinkMeasurements.toString();
-    drinkInstructEl.textContent = displayArray[0].drinkInstructions;
+    drinkImg.src = displayObj.drinkImageUrl;
+    drinkNameEl.textContent = displayObj.drinkName;
+    drinkNameEl.setAttribute("id", "drink-name");
+    drinkIngredientsEl.textContent = displayObj.drinkIngredients.toString();
+    drinkMesEl.textContent = displayObj.drinkMeasurements.toString();
+    drinkInstructEl.textContent = displayObj.drinkInstructions;
 
-    /*leftContainerEl.appendChild(bookTitleEl);
-    leftContainerEl.appendChild(bookAuthorEl);
-    leftContainerEl.appendChild(bookDescEl);
-    leftContainerEl.appendChild(bookImg);*/
     bookInfoEl.appendChild(bookTitleEl);
-    bookInfoEl.appendChild(bookAuthorEl)
-    bookInfoEl.appendChild(bookDescEl)
-    bookInfoEl.appendChild(bookImg)
+    bookInfoEl.appendChild(bookAuthorEl);
+    bookInfoEl.appendChild(bookDescEl);
+    //bookInfoEl.appendChild(bookImg);
 
 
-    rightContainerEl.appendChild(drinkImg)
-    rightContainerEl.appendChild(drinkNameEl);
-    rightContainerEl.appendChild(drinkIngredientsEl);
-    rightContainerEl.appendChild(drinkMesEl);
-    rightContainerEl.appendChild(drinkInstructEl);
-    drinkNameEl.textContent = displayArray[0].drinkName;
-    drinkIngredientsEl.textContent = displayArray[0].drinkIngredients.toString();
-    drinkMesEl.textContent = displayArray[0].drinkMeasurements.toString();
-    drinkInstructEl.textContent = displayArray[0].drinkInstructions;
+    //drinkContainerEl.appendChild(drinkImg);
+    drinkContainerEl.appendChild(drinkNameEl);
+    drinkContainerEl.appendChild(drinkIngredientsEl);
+    drinkContainerEl.appendChild(drinkMesEl);
+    drinkContainerEl.appendChild(drinkInstructEl);
+    
+    bookContainerEl.appendChild(bookInfoEl);
+    bookContainerEl.appendChild(bookchoiceEl);
 
-    /*leftContainerEl.appendChild(bookTitleEl);
-    leftContainerEl.appendChild(bookAuthorEl);
-    leftContainerEl.appendChild(bookDescEl);*/
-    leftContainerEl.appendChild(bookInfoEl);
-    leftContainerEl.appendChild(bookchoiceEl);
-
-    rightContainerEl.appendChild(drinkNameEl);
-    rightContainerEl.appendChild(drinkIngredientsEl);
-    rightContainerEl.appendChild(drinkMesEl);
-    rightContainerEl.appendChild(drinkInstructEl);
-
-    containerEl.appendChild(leftContainerEl);
-    containerEl.appendChild(rightContainerEl);
+    containerEl.appendChild(bookContainerEl);
+    containerEl.appendChild(drinkContainerEl);
 
     searchResultEl.appendChild(containerEl);
 };
-
-/*
-###### TBR ls add
-*/
-
-function TBR(event) {
-
-    event.preventDefault();
-    let ListEl = document.querySelector('#TBR-list');
-    let bookname = document.querySelector('#book');
-    let author = document.querySelector('#author');
-
-    let TBREl = document.createElement('li');
-    TBREl.classList.add('pure-menu-item');
-    TBREl.textContent = bookname.textContent + ' by ' + author.textContent
-
-    ListEl.appendChild(TBREl);
-
-    
-
-    //delete button
-    var deleteButtonEl = document.createElement("button");
-    deleteButtonEl.textContent = "Delete";
-    TBREl.appendChild(deleteButtonEl);
-
-
-    ListEl.addEventListener('click',function(event){
-        event.target.closest('.pure-menu-item').remove();
-        
-    })
-}
 
 
 /*
@@ -161,6 +167,8 @@ async function callApiPromise(bookTitle) {
     let cocktailDbResponse;
     let cocktailDbJson;
 
+    searchResultEl.innerHTML = "";
+
     try {
         // fetching array of books based on bookTitle search
         let googleResponse = await fetch(googleBooksApi);
@@ -172,12 +180,12 @@ async function callApiPromise(bookTitle) {
             cocktailDbJson = await cocktailDbResponse.json();
 
             displayArray.push(new cardObj(googleJson.items[i], cocktailDbJson.drinks[0]));
+            await renderSearchResults(displayArray[i]);
         }
 
-        await renderSearchResults();
     } catch (error) {
         console.log("error in callPromiseApi " + error);
-        alert('Do not drink before the search');
+        //alert('Do not drink before the search');
     }
 };
 
@@ -215,4 +223,5 @@ function saveTbrArray() {
 
 // event listenters
 formEl.addEventListener("click", formSubmitHandler);
+searchResultEl.addEventListener('click', tbrEventHandler);
 
