@@ -30,9 +30,12 @@ form{
     border: 2px solid var(--secondary-color);
     margin: 2px;
 }
-#tbr-list{
+#TBR-list{
     border: 2px solid var(--secondary-color);
     margin: 2px;
+    background-size: auto;
+    width: 50%;
+    padding: 0 25% 0 25%;
 }
 #search-results{
     border: 2px solid var(--secondary-color);
@@ -42,16 +45,23 @@ form{
 .pure-g {
     text-align: center;
 }
-
-@media screen and (max-width:1280px){
-
+.result-container {
+    background-color: var(--quaternary-color);
+    margin: 2em 2em 2em 2em;
+    border-radius: 25px;
+    border: solid 3px var(--secondary-color);
 }
-@media screen and (max-width:1024px){
-
+#submitButton{
+    background-color: var(--tertiary-color);
+    margin: 4px;
+    border-radius: 25px;
 }
-@media screen and (max-width:768px){
-
+ul {
+    background-size: 50%;
 }
-@media screen and (max-width:568px){
-
+li {
+    background-color: var(--quaternary-color);
+    margin: 2em 2em 2em 2em;
+    background-size: 50px;
+    border-radius: 25px;
 }

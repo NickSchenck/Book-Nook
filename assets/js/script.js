@@ -102,15 +102,16 @@ function tbrEventHandler(event) {
 function renderSearchResults(displayObj) {
 
     let containerEl = document.createElement("div");
+    containerEl.className ="pure-u-2-3 pure-u-md-2-3 result-container";
     let bookContainerEl = document.createElement("div");
+    bookContainerEl.className ="pure-u-2-3 pure-u-md-2-3";
     let drinkContainerEl = document.createElement("div");
-
-    containerEl.setAttribute("class", "result-container");
+    drinkContainerEl.className ="pure-2-3 pure-u-md-2-3";
 
     let bookInfoEl = document.createElement("div");
     let bookchoiceEl = document.createElement('button');
 
-    bookchoiceEl.textContent = 'TBR ?';
+    bookchoiceEl.textContent = 'Add Book to To Be Read List';
     bookchoiceEl.setAttribute('class', 'add_book');
 
 
