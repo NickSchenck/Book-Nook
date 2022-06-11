@@ -10,12 +10,13 @@ function cardObj(bookObj, drinkObj) {
     this.bookTitle = bookObj.volumeInfo.title;
     this.bookAuthor = bookObj.volumeInfo.authors[0];
     this.bookDescription = bookObj.volumeInfo.description;
-    this.bookImageUrl = bookObj.volumeInfo.imageLinks.tumbnail;
+    this.bookImageUrl = bookObj.volumeInfo.imageLinks.thumbnail;
     this.drinkName = drinkObj.strDrink;
     this.drinkImageUrl = drinkObj.strDrinkThumb;
     this.drinkIngredients = getDrinkPropertyArr(drinkObj, "strIngredient");
     this.drinkMeasurements = getDrinkPropertyArr(drinkObj, "strMeasure");
     this.drinkInstructions = drinkObj.strInstructions;
+    
 }
 
 /*
@@ -26,8 +27,8 @@ function formSubmitHandler(event) {
     let tag = event.target;
     let inputEl = document.querySelector(".pure-input-rounded");
     displayArray = [];
-    
-    if(tag.id === "submitButton") {
+
+    if (tag.id === "submitButton") {
         callApiPromise(inputEl.value);
         inputEl.value = "";
     }
@@ -47,7 +48,9 @@ function renderSearchResults() {
     let bookTitleEl = document.createElement("h3");
     let bookAuthorEl = document.createElement("h4");
     let bookDescEl = document.createElement("p");
-    let drinkImg = document.createElement('img') ;
+    let bookImg= document.createElement('img');
+
+    let drinkImg = document.createElement('img');
     let drinkNameEl = document.createElement("h3");
     let drinkIngredientsEl = document.createElement("p");
     let drinkMesEl = document.createElement("p");
@@ -56,8 +59,10 @@ function renderSearchResults() {
     bookTitleEl.textContent = displayArray[0].bookTitle;
     bookAuthorEl.textContent = displayArray[0].bookAuthor;
     bookDescEl.textContent = displayArray[0].bookDescription;
+    bookImg.src=displayArray[0].bookImageUrl;
+   
 
-    drinkImg.src=displayArray[0].drinkImageUrl
+    drinkImg.src = displayArray[0].drinkImageUrl;
     drinkNameEl.textContent = displayArray[0].drinkName;
     drinkIngredientsEl.textContent = displayArray[0].drinkIngredients.toString();
     drinkMesEl.textContent = displayArray[0].drinkMeasurements.toString();
@@ -66,12 +71,14 @@ function renderSearchResults() {
     leftContainerEl.appendChild(bookTitleEl);
     leftContainerEl.appendChild(bookAuthorEl);
     leftContainerEl.appendChild(bookDescEl);
+    leftContainerEl.appendChild(bookImg);
 
     rightContainerEl.appendChild(drinkImg)
     rightContainerEl.appendChild(drinkNameEl);
     rightContainerEl.appendChild(drinkIngredientsEl);
     rightContainerEl.appendChild(drinkMesEl);
-    rightContainerEl.appendChild(drinkInstructEl);    drinkNameEl.textContent = displayArray[0].drinkName;
+    rightContainerEl.appendChild(drinkInstructEl);
+    drinkNameEl.textContent = displayArray[0].drinkName;
     drinkIngredientsEl.textContent = displayArray[0].drinkIngredients.toString();
     drinkMesEl.textContent = displayArray[0].drinkMeasurements.toString();
     drinkInstructEl.textContent = displayArray[0].drinkInstructions;
@@ -100,23 +107,24 @@ async function callApiPromise(bookTitle) {
     let cocktailDbApi = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
     let cocktailDbResponse;
     let cocktailDbJson;
-
+    console.log (googleBooksApi)
     try {
         // fetching array of books based on bookTitle search
         let googleResponse = await fetch(googleBooksApi);
         let googleJson = await googleResponse.json();
 
         // loop through to produce 5 books from google api and fetch random cocktail
-        for(let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
             cocktailDbResponse = await fetch(cocktailDbApi);
             cocktailDbJson = await cocktailDbResponse.json();
-            
+
             displayArray.push(new cardObj(googleJson.items[i], cocktailDbJson.drinks[0]));
         }
 
         await renderSearchResults();
-    } catch(error) {
+    } catch (error) {
         console.log("error in callPromiseApi " + error);
+        alert('Do not drink before the search');
     }
 };
 
@@ -125,7 +133,7 @@ function getDrinkPropertyArr(obj, property) {
     let targetArr = [];
     let index = 1;
 
-    while(obj[property + index] !== null) {
+    while (obj[property + index] !== null) {
         targetArr.push(obj[property + index]);
         index++;
     }
@@ -139,10 +147,10 @@ function getDrinkPropertyArr(obj, property) {
 
 // loads tbr array and if undefined initialize array
 function loadTrbArray() {
-    if(localStorage.getItem("book-nook-tbr")) {
+    if (localStorage.getItem("book-nook-tbr")) {
         tbrArray = JSON.parse(localStorage.getItem("book-nook-tbr"));
-    } 
-    if(tbrArray === undefined) {
+    }
+    if (tbrArray === undefined) {
         tbrArray = [];
     }
 };
