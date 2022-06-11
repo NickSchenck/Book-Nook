@@ -49,19 +49,23 @@ function tbrEventHandler(event) {
     if(event.target.tagName === "BUTTON") {
         event.preventDefault();
         let ListEl = document.querySelector('#TBR-list');
-        let bookname = document.querySelector('#book');
-        let author = document.querySelector('#author');
-        let drink = document.querySelector("#drink-name");
+        let bookname = event.target.parentNode.childNodes[0].childNodes[0];
+        let author = event.target.parentNode.childNodes[0].childNodes[1];
+        let drink = event.target.parentNode.parentNode.childNodes[1].childNodes[0].textContent;
+
+        console.log(drink);
 
         let TBREl = document.createElement('li');
         TBREl.classList.add('pure-menu-item');
-        TBREl.textContent = bookname.textContent + ' by ' + author.textContent
+        TBREl.textContent = bookname.textContent + ' by ' + author.textContent;
 
         ListEl.appendChild(TBREl);
 
         // add to tbr array
         for(let displayObj of displayArray) {
-            if(displayObj.drinkName === drink.textContent) {
+            console.log(displayObj);
+            if(displayObj.drinkName === drink) {
+                console.log("help");
                 tbrArray.push(displayObj);
             }
         }
@@ -105,13 +109,13 @@ function renderSearchResults(displayObj) {
     let bookchoiceEl = document.createElement('button');
 
     bookchoiceEl.textContent = 'TBR ?';
-    bookchoiceEl.setAttribute('id', 'add_book');
+    bookchoiceEl.setAttribute('class', 'add_book');
 
 
     let bookTitleEl = document.createElement("h3");
-    bookTitleEl.setAttribute('id', 'book')
+    bookTitleEl.setAttribute('class', 'book')
     let bookAuthorEl = document.createElement("h4");
-    bookAuthorEl.setAttribute('id', "author")
+    bookAuthorEl.setAttribute('class', "author")
     let bookDescEl = document.createElement("p");
     let bookImg = document.createElement('img');
 
@@ -129,7 +133,7 @@ function renderSearchResults(displayObj) {
 
     drinkImg.src = displayObj.drinkImageUrl;
     drinkNameEl.textContent = displayObj.drinkName;
-    drinkNameEl.setAttribute("id", "drink-name");
+    drinkNameEl.setAttribute("class", "drink-name");
     drinkIngredientsEl.textContent = displayObj.drinkIngredients.toString();
     drinkMesEl.textContent = displayObj.drinkMeasurements.toString();
     drinkInstructEl.textContent = displayObj.drinkInstructions;
