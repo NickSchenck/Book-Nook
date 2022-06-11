@@ -1,4 +1,4 @@
-var historyArray;
+var tbrArray;
 var displayArray = [];
 
 // object to house book and drink combo info
@@ -42,7 +42,7 @@ async function callApiPromise(bookTitle) {
 };
 
 // used to parse through drink JSON properties for ingredients and measurements
-getDrinkPropertyArr = function(obj, property) {
+function getDrinkPropertyArr(obj, property) {
     let targetArr = [];
     let index = 1;
 
@@ -53,3 +53,18 @@ getDrinkPropertyArr = function(obj, property) {
 
     return targetArr;
 };
+
+// loads tbr array and if undefined initialize array
+function loadTrbArray() {
+    if(localStorage.getItem("book-nook-tbr")) {
+        tbrArray = JSON.parse(localStorage.getItem("book-nook-tbr"));
+    } 
+    if(tbrArray === undefined) {
+        tbrArray = [];
+    }
+}
+
+// saves tbr array via local storage
+function saveTbrArray() {
+    localStorage.setItem("book-nook-tbr", JSON.stringify(tbrArray));
+}
