@@ -45,6 +45,12 @@ function renderSearchResults() {
     let leftContainerEl = document.createElement("div");
     let rightContainerEl = document.createElement("div");
 
+    let bookInfoEl=document.createElement("div");
+    let bookchoiceEl=document.createElement('button')
+    
+    bookchoiceEl.textContent='TBR ?'
+    bookchoiceEl.setAttribute('id', 'add_book')
+
     let bookTitleEl = document.createElement("h3");
     let bookAuthorEl = document.createElement("h4");
     let bookDescEl = document.createElement("p");
@@ -68,11 +74,16 @@ function renderSearchResults() {
     drinkMesEl.textContent = displayArray[0].drinkMeasurements.toString();
     drinkInstructEl.textContent = displayArray[0].drinkInstructions;
 
-    leftContainerEl.appendChild(bookTitleEl);
+    /*leftContainerEl.appendChild(bookTitleEl);
     leftContainerEl.appendChild(bookAuthorEl);
     leftContainerEl.appendChild(bookDescEl);
-    leftContainerEl.appendChild(bookImg);
-
+    leftContainerEl.appendChild(bookImg);*/
+    bookInfoEl.appendChild( bookTitleEl);
+    bookInfoEl.appendChild( bookAuthorEl)
+    bookInfoEl.appendChild( bookDescEl)
+    bookInfoEl.appendChild( bookImg)
+    
+   
     rightContainerEl.appendChild(drinkImg)
     rightContainerEl.appendChild(drinkNameEl);
     rightContainerEl.appendChild(drinkIngredientsEl);
@@ -83,9 +94,12 @@ function renderSearchResults() {
     drinkMesEl.textContent = displayArray[0].drinkMeasurements.toString();
     drinkInstructEl.textContent = displayArray[0].drinkInstructions;
 
-    leftContainerEl.appendChild(bookTitleEl);
+    /*leftContainerEl.appendChild(bookTitleEl);
     leftContainerEl.appendChild(bookAuthorEl);
-    leftContainerEl.appendChild(bookDescEl);
+    leftContainerEl.appendChild(bookDescEl);*/
+    leftContainerEl.appendChild(bookInfoEl);
+    leftContainerEl.appendChild(bookchoiceEl);
+
     rightContainerEl.appendChild(drinkNameEl);
     rightContainerEl.appendChild(drinkIngredientsEl);
     rightContainerEl.appendChild(drinkMesEl);
@@ -107,7 +121,7 @@ async function callApiPromise(bookTitle) {
     let cocktailDbApi = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
     let cocktailDbResponse;
     let cocktailDbJson;
-    console.log (googleBooksApi)
+
     try {
         // fetching array of books based on bookTitle search
         let googleResponse = await fetch(googleBooksApi);
