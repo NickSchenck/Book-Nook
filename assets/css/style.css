@@ -39,6 +39,10 @@ form{
     margin: 2px;
     text-align: center;
 }
+.pure-g {
+    text-align: center;
+}
+
 @media screen and (max-width:1280px){
 
 }

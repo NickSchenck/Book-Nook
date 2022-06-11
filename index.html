@@ -10,25 +10,26 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/base-min.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-min.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css">
+    <!-- this stylesheet link is from https://www.geeksforgeeks.org/pure-css-customizing-buttons/ to get search buttons to work -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+        integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous" />
 </head>
 
 <body>
     <div class="pure-g">
         <header class="pure-u-1">Book Nook</header>
-        <div class="pure-u-1 pure-u-md-1-3">
-            <div id="formtbr-cont">
-                <div id="search-form">
-                    <div>Search for a Book</div>
-                    <form action="">
-                        <input type="text">
-                        <button>Search</button>
-                    </form>
-                </div>
-                <div id="tbr-list">
-                    <div>TBR</div>
-                    <div>TBR</div>
-                    <div>TBR</div>
-                </div>
+        <div class="pure-u-1 pure-u-md-1-3 pure-menu custom-restricted-width">
+            <div>
+                <div class="pure-menu-heading">Search for a Book</div>
+                <form class="pure-form">
+                    <input type="text" class="pure-input-rounded" />
+                    <button type="submit" class="pure-button">Search Button</button>
+                </form>
+            </div>
+            <div class="pure-menu-list">
+                <div class="pure-menu-item">TBR</div>
+                <div class="pure-menu-item">TBR</div>
+                <div class="pure-menu-item">TBR</div>
             </div>
         </div>
         <div class="pure-u-1 pure-u-md-2-3" id="search-results">
