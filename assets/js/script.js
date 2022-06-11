@@ -1,6 +1,8 @@
 var tbrArray;
 var displayArray = [];
 
+let formEl = document.querySelector("#form");
+
 // object to house book and drink combo info
 function cardObj(bookObj, drinkObj) {
 
@@ -13,9 +15,25 @@ function cardObj(bookObj, drinkObj) {
     this.drinkIngredients = getDrinkPropertyArr(drinkObj, "strIngredient");
     this.drinkMeasurements = getDrinkPropertyArr(drinkObj, "strMeasure");
     this.drinkInstructions = drinkObj.strInstructions;
-
-
 }
+
+/*
+#############Event Handlers
+*/
+
+function formSubmitHandler(event) {
+    let tag = event.target;
+    let inputEl = document.querySelector(".pure-input-rounded");
+    
+    if(tag.id === "submitButton") {
+        callApiPromise(inputEl.value);
+        console.log(displayArray);
+        inputEl.value = "";
+    }
+
+    event.preventDefault();
+}
+
 
 // call to fetch information from google books api and cocktail db api
 async function callApiPromise(bookTitle) {
@@ -62,9 +80,12 @@ function loadTrbArray() {
     if(tbrArray === undefined) {
         tbrArray = [];
     }
-}
+};
 
 // saves tbr array via local storage
 function saveTbrArray() {
     localStorage.setItem("book-nook-tbr", JSON.stringify(tbrArray));
-}
+};
+
+// event listenters
+formEl.addEventListener("click", formSubmitHandler);
