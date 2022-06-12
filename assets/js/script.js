@@ -3,6 +3,7 @@ var displayArray = [];
 
 let formEl = document.querySelector("#form");
 let searchResultEl = document.querySelector("#search-results");
+let ListEl = document.querySelector("#TBR-list");
 
 // object to house book and drink combo info
 function cardObj(bookObj, drinkObj) {
@@ -21,6 +22,7 @@ function cardObj(bookObj, drinkObj) {
 
 window.onload = function() {
     loadTrbArray();
+    renderTBRList();
 };
 
 /*
@@ -53,11 +55,11 @@ function tbrEventHandler(event) {
         let author = event.target.parentNode.childNodes[0].childNodes[1];
         let drink = event.target.parentNode.parentNode.childNodes[1].childNodes[0].textContent;
 
-        console.log(drink);
+        // console.log(drink);
 
         let TBREl = document.createElement('li');
         TBREl.classList.add('pure-menu-item');
-        TBREl.textContent = bookname.textContent + ' by ' + author.textContent;
+        TBREl.textContent = bookname.textContent + '/' + drink;
 
         ListEl.appendChild(TBREl);
 
@@ -65,7 +67,6 @@ function tbrEventHandler(event) {
         for(let displayObj of displayArray) {
             console.log(displayObj);
             if(displayObj.drinkName === drink) {
-                console.log("help");
                 tbrArray.push(displayObj);
             }
         }
@@ -80,17 +81,15 @@ function tbrEventHandler(event) {
         ListEl.addEventListener('click',function(event){
             if(event.target.tagName === "BUTTON") {
                 event.target.closest('.pure-menu-item').remove();
-
-                // removes from tbr array
                 for(let i = 0; i < tbrArray.length; i++) {
-                    if(tbrArray[i].drinkName === drink.textContent) {
+                    if(tbrArray[i].drinkName === drink) {
                         tbrArray.splice(i, 1);
                     }
                 }
                 saveTbrArray();
-            }
+            } 
         });
-
+        
         saveTbrArray();
     }
 };
@@ -162,6 +161,60 @@ function renderSearchResults(displayObj) {
     searchResultEl.appendChild(containerEl);
 };
 
+function renderTBRList(){
+    for(i = 0; i < tbrArray.length; i++){
+        let bookname = tbrArray[i].bookTitle;
+        let drink = tbrArray[i].drinkName;
+        let TBREl = document.createElement('li');
+        let deleteButtonEl = document.createElement("button");
+
+        TBREl.classList.add('pure-menu-item');
+        TBREl.textContent = bookname + "/" + drink;
+        deleteButtonEl.textContent = "Delete";
+        TBREl.appendChild(deleteButtonEl);
+
+        ListEl.addEventListener('click',function(event){
+            if(event.target.tagName === "BUTTON") {
+                event.target.closest('.pure-menu-item').remove();
+                for(let i = 0; i < tbrArray.length; i++) {
+                    if(tbrArray[i].drinkName === drink) {
+                        tbrArray.splice(i, 1);
+                    }
+                }
+                saveTbrArray();
+            } 
+        });
+        
+        saveTbrArray();
+
+        ListEl.appendChild(TBREl);
+        // console.log(tbrArray[i].bookTitle);
+    }
+    
+
+    // console.log(tbrArray);
+};
+
+function renderTBRItem(event) {
+    //targets the clicked item by checking if = to LI
+    if(event.target.tagName === "LI"){
+        searchResultEl.innerHTML = "";
+        //targets the content of the clicked item, and splits it at the given character
+        let drink = event.target.textContent.split("/")[1];
+        //targets the content of the clicked item, getting rid of the delete button at the end of the li elm
+        let drinkName = drink.substr(0, (drink.length - 6));
+        for(i = 0; i < tbrArray.length; i++){
+            //within the tbr array target a value(drinkName) and check if it is equal to a defining value
+            if(tbrArray[i].drinkName === drinkName){
+                renderSearchResults(tbrArray[i]);
+                // console.log(tbrArray[i]);
+            }
+            
+        }
+        
+    }
+    
+};
 
 /*
 ###### API call
@@ -231,4 +284,4 @@ function saveTbrArray() {
 // event listenters
 formEl.addEventListener("click", formSubmitHandler);
 searchResultEl.addEventListener('click', tbrEventHandler);
-
+ListEl.addEventListener("click", renderTBRItem);
