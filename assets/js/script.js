@@ -52,10 +52,7 @@ function tbrEventHandler(event) {
         event.preventDefault();
         let ListEl = document.querySelector('#TBR-list');
         let bookname = event.target.parentNode.childNodes[0].childNodes[0];
-        let author = event.target.parentNode.childNodes[0].childNodes[1];
         let drink = event.target.parentNode.parentNode.childNodes[1].childNodes[0].textContent;
-
-        // console.log(drink);
 
         let TBREl = document.createElement('li');
         TBREl.classList.add('pure-menu-item');
@@ -65,7 +62,6 @@ function tbrEventHandler(event) {
 
         // add to tbr array
         for(let displayObj of displayArray) {
-            console.log(displayObj);
             if(displayObj.drinkName === drink) {
                 tbrArray.push(displayObj);
             }
@@ -76,19 +72,6 @@ function tbrEventHandler(event) {
         var deleteButtonEl = document.createElement("button");
         deleteButtonEl.textContent = "Delete";
         TBREl.appendChild(deleteButtonEl);
-
-
-        ListEl.addEventListener('click',function(event){
-            if(event.target.tagName === "BUTTON") {
-                event.target.closest('.pure-menu-item').remove();
-                for(let i = 0; i < tbrArray.length; i++) {
-                    if(tbrArray[i].drinkName === drink) {
-                        tbrArray.splice(i, 1);
-                    }
-                }
-                saveTbrArray();
-            } 
-        });
         
         saveTbrArray();
     }
@@ -143,10 +126,7 @@ function renderSearchResults(displayObj) {
     bookInfoEl.appendChild(bookTitleEl);
     bookInfoEl.appendChild(bookAuthorEl);
     bookInfoEl.appendChild(bookDescEl);
-    //bookInfoEl.appendChild(bookImg);
 
-
-    //drinkContainerEl.appendChild(drinkImg);
     drinkContainerEl.appendChild(drinkNameEl);
     drinkContainerEl.appendChild(drinkIngredientsEl);
     drinkContainerEl.appendChild(drinkMesEl);
@@ -172,27 +152,11 @@ function renderTBRList(){
         TBREl.textContent = bookname + "/" + drink;
         deleteButtonEl.textContent = "Delete";
         TBREl.appendChild(deleteButtonEl);
-
-        ListEl.addEventListener('click',function(event){
-            if(event.target.tagName === "BUTTON") {
-                event.target.closest('.pure-menu-item').remove();
-                for(let i = 0; i < tbrArray.length; i++) {
-                    if(tbrArray[i].drinkName === drink) {
-                        tbrArray.splice(i, 1);
-                    }
-                }
-                saveTbrArray();
-            } 
-        });
         
         saveTbrArray();
 
         ListEl.appendChild(TBREl);
-        // console.log(tbrArray[i].bookTitle);
     }
-    
-
-    // console.log(tbrArray);
 };
 
 function renderTBRItem(event) {
@@ -203,17 +167,30 @@ function renderTBRItem(event) {
         let drink = event.target.textContent.split("/")[1];
         //targets the content of the clicked item, getting rid of the delete button at the end of the li elm
         let drinkName = drink.substr(0, (drink.length - 6));
+
         for(i = 0; i < tbrArray.length; i++){
             //within the tbr array target a value(drinkName) and check if it is equal to a defining value
             if(tbrArray[i].drinkName === drinkName){
                 renderSearchResults(tbrArray[i]);
-                // console.log(tbrArray[i]);
             }
             
         }
         
     }
-    
+
+    if(event.target.tagName === "BUTTON") {
+        let drink = event.target.parentNode.textContent.split("/")[1];
+        let drinkName = drink.substr(0, (drink.length - 6));
+
+        event.target.closest('.pure-menu-item').remove();
+
+        for(let i = 0; i < tbrArray.length; i++) {
+            if(tbrArray[i].drinkName === drinkName) {
+                tbrArray.splice(i, 1);
+            }
+        }
+        saveTbrArray();
+     } 
 };
 
 /*
