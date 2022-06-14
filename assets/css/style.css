@@ -10,7 +10,7 @@ body{
 }
 header{
     background: var(--quaternary-color);
-    font-size: 32px;
+    font-size: 3.5rem;
     padding: 5px;
 }
 .container{
@@ -33,44 +33,3 @@ header{
 .card{
     background: var(--primary-color);
 }
-
-/*
-#search-form{
-    border: 2px solid var(--secondary-color);
-    margin: 2px;
-}
-#TBR-list{
-    border: 2px solid var(--secondary-color);
-    margin: 2px;
-    background-size: auto;
-    width: 50%;
-    padding: 0 25% 0 25%;
-}
-#search-results{
-    border: 2px solid var(--secondary-color);
-    margin: 2px;
-    text-align: center;
-}
-.pure-g {
-    text-align: center;
-}
-.result-container {
-    background-color: var(--quaternary-color);
-    margin: 2em 2em 2em 2em;
-    border-radius: 25px;
-    border: solid 3px var(--secondary-color);
-}
-#submitButton{
-    background-color: var(--tertiary-color);
-    margin: 4px;
-    border-radius: 25px;
-}
-ul {
-    background-size: 50%;
-}
-li {
-    background-color: var(--quaternary-color);
-    margin: 2em 2em 2em 2em;
-    background-size: 50px;
-    border-radius: 25px;
-} */
