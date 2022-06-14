@@ -29,7 +29,7 @@ window.onload = function() {
 
 function formSubmitHandler(event) {
     let tag = event.target;
-    let inputEl = document.querySelector(".pure-input-rounded");
+    let inputEl = document.querySelector(".center-align");
     displayArray = [];
 
     if (tag.id === "submitButton") {
@@ -56,7 +56,7 @@ function tbrEventHandler(event) {
         console.log(drink);
 
         let TBREl = document.createElement('li');
-        TBREl.classList.add('pure-menu-item');
+        TBREl.classList.add('card grey darken-1');
         TBREl.textContent = bookname.textContent + ' by ' + author.textContent;
 
         ListEl.appendChild(TBREl);
@@ -79,7 +79,7 @@ function tbrEventHandler(event) {
 
         ListEl.addEventListener('click',function(event){
             if(event.target.tagName === "BUTTON") {
-                event.target.closest('.pure-menu-item').remove();
+                event.target.closest('.card grey darken-1').remove();
 
                 // removes from tbr array
                 for(let i = 0; i < tbrArray.length; i++) {
@@ -102,11 +102,11 @@ function tbrEventHandler(event) {
 function renderSearchResults(displayObj) {
 
     let containerEl = document.createElement("div");
-    containerEl.className ="pure-u-2-3 pure-u-md-2-3 result-container";
+    containerEl.className ="card grey darken-1";
     let bookContainerEl = document.createElement("div");
-    bookContainerEl.className ="pure-u-2-3 pure-u-md-2-3";
+    bookContainerEl.className ="card-content white-text";
     let drinkContainerEl = document.createElement("div");
-    drinkContainerEl.className ="pure-2-3 pure-u-md-2-3";
+    drinkContainerEl.className ="card-content white-text";
 
     let bookInfoEl = document.createElement("div");
     let bookchoiceEl = document.createElement('button');
