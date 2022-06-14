@@ -58,44 +58,61 @@ function tbrEventHandler(event) {
         TBREl.classList.add('pure-menu-item');
         TBREl.textContent = bookname.textContent + '/' + drink;
 
-        for (var i = 0; i < tbrArray.length; i++) {
-            if (bookname.textContent === tbrArray[i].bookTitle) {
-                alert('Hi friend')
-                alert('You may have different drink but you are choosing the same book!')
-                alert('Let search other book and another drink')
-            }
-            else {
-                console.log(bookname)
-                ListEl.appendChild(TBREl);
+        function addbook() {
 
-                // add to tbr array
-                for (let displayObj of displayArray) {
-                    if (displayObj.drinkName === drink) {
-                        tbrArray.push(displayObj);
-                    }
+            ListEl.appendChild(TBREl);
+
+            // add to tbr array
+            for (let displayObj of displayArray) {
+                if (displayObj.drinkName === drink) {
+                    tbrArray.push(displayObj);
                 }
-
-
-                //delete button
-                var deleteButtonEl = document.createElement("button");
-                deleteButtonEl.textContent = "Delete";
-                TBREl.appendChild(deleteButtonEl);
-
-                saveTbrArray();
             }
-            break;
-        }
 
+
+            //delete button
+            var deleteButtonEl = document.createElement("button");
+            deleteButtonEl.textContent = "Delete";
+            TBREl.appendChild(deleteButtonEl);
+
+            saveTbrArray();
+        }
+        console.log(event.target)
+        console.log(tbrArray)
+        if (tbrArray.length<1) {console.log('hey'); addbook() }
+        else { console.log('no');
+            for (var i = 0; i < tbrArray.length; i++) {
+                console.log(tbrArray
+                )
+                if (bookname.textContent === tbrArray[i].bookTitle) {
+                    alert('Hi friend')
+                    var confirmbook = confirm('You may have different drink but you are choosing the same book! Do you still want to add it into TBR')
+                    if (confirmbook) {
+                        addbook()
+                        return true;
+                    }
+                    console.log('hey')
+                    alert('let search another book and drink')
+
+                }
+                else { addbook() }
+
+                break;
+            }
+
+        }
     }
 
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
 
 
 /*
