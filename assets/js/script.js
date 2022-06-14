@@ -20,7 +20,7 @@ function cardObj(bookObj, drinkObj) {
 
 }
 
-window.onload = function() {
+window.onload = function () {
     loadTrbArray();
     renderTBRList();
 };
@@ -48,7 +48,7 @@ function formSubmitHandler(event) {
 
 function tbrEventHandler(event) {
 
-    if(event.target.tagName === "BUTTON") {
+    if (event.target.tagName === "BUTTON") {
         event.preventDefault();
         let ListEl = document.querySelector('#TBR-list');
         let bookname = event.target.parentNode.childNodes[0].childNodes[0];
@@ -58,24 +58,45 @@ function tbrEventHandler(event) {
         TBREl.classList.add('pure-menu-item');
         TBREl.textContent = bookname.textContent + '/' + drink;
 
-        ListEl.appendChild(TBREl);
-
-        // add to tbr array
-        for(let displayObj of displayArray) {
-            if(displayObj.drinkName === drink) {
-                tbrArray.push(displayObj);
+        for (var i = 0; i < tbrArray.length; i++) {
+            if (bookname.textContent === tbrArray[i].bookTitle) {
+                alert('Hi friend')
+                alert('You may have different drink but you are choosing the same book!')
+                alert('Let search other book and another drink')
             }
-        }
-        
+            else {
+                console.log(bookname)
+                ListEl.appendChild(TBREl);
 
-        //delete button
-        var deleteButtonEl = document.createElement("button");
-        deleteButtonEl.textContent = "Delete";
-        TBREl.appendChild(deleteButtonEl);
-        
-        saveTbrArray();
+                // add to tbr array
+                for (let displayObj of displayArray) {
+                    if (displayObj.drinkName === drink) {
+                        tbrArray.push(displayObj);
+                    }
+                }
+
+
+                //delete button
+                var deleteButtonEl = document.createElement("button");
+                deleteButtonEl.textContent = "Delete";
+                TBREl.appendChild(deleteButtonEl);
+
+                saveTbrArray();
+            }
+            break;
+        }
+
     }
-};
+
+
+
+
+
+
+
+
+}
+
 
 /*
 ###### Rendering
@@ -84,11 +105,11 @@ function tbrEventHandler(event) {
 function renderSearchResults(displayObj) {
 
     let containerEl = document.createElement("div");
-    containerEl.className ="pure-u-2-3 pure-u-md-2-3 result-container";
+    containerEl.className = "pure-u-2-3 pure-u-md-2-3 result-container";
     let bookContainerEl = document.createElement("div");
-    bookContainerEl.className ="pure-u-2-3 pure-u-md-2-3";
+    bookContainerEl.className = "pure-u-2-3 pure-u-md-2-3";
     let drinkContainerEl = document.createElement("div");
-    drinkContainerEl.className ="pure-2-3 pure-u-md-2-3";
+    drinkContainerEl.className = "pure-2-3 pure-u-md-2-3";
 
     let bookInfoEl = document.createElement("div");
     let bookchoiceEl = document.createElement('button');
@@ -131,7 +152,7 @@ function renderSearchResults(displayObj) {
     drinkContainerEl.appendChild(drinkIngredientsEl);
     drinkContainerEl.appendChild(drinkMesEl);
     drinkContainerEl.appendChild(drinkInstructEl);
-    
+
     bookContainerEl.appendChild(bookInfoEl);
     bookContainerEl.appendChild(bookchoiceEl);
 
@@ -141,8 +162,8 @@ function renderSearchResults(displayObj) {
     searchResultEl.appendChild(containerEl);
 };
 
-function renderTBRList(){
-    for(i = 0; i < tbrArray.length; i++){
+function renderTBRList() {
+    for (i = 0; i < tbrArray.length; i++) {
         let bookname = tbrArray[i].bookTitle;
         let drink = tbrArray[i].drinkName;
         let TBREl = document.createElement('li');
@@ -152,7 +173,7 @@ function renderTBRList(){
         TBREl.textContent = bookname + "/" + drink;
         deleteButtonEl.textContent = "Delete";
         TBREl.appendChild(deleteButtonEl);
-        
+
         saveTbrArray();
 
         ListEl.appendChild(TBREl);
@@ -161,36 +182,36 @@ function renderTBRList(){
 
 function renderTBRItem(event) {
     //targets the clicked item by checking if = to LI
-    if(event.target.tagName === "LI"){
+    if (event.target.tagName === "LI") {
         searchResultEl.innerHTML = "";
         //targets the content of the clicked item, and splits it at the given character
         let drink = event.target.textContent.split("/")[1];
         //targets the content of the clicked item, getting rid of the delete button at the end of the li elm
         let drinkName = drink.substr(0, (drink.length - 6));
 
-        for(i = 0; i < tbrArray.length; i++){
+        for (i = 0; i < tbrArray.length; i++) {
             //within the tbr array target a value(drinkName) and check if it is equal to a defining value
-            if(tbrArray[i].drinkName === drinkName){
+            if (tbrArray[i].drinkName === drinkName) {
                 renderSearchResults(tbrArray[i]);
             }
-            
+
         }
-        
+
     }
 
-    if(event.target.tagName === "BUTTON") {
+    if (event.target.tagName === "BUTTON") {
         let drink = event.target.parentNode.textContent.split("/")[1];
         let drinkName = drink.substr(0, (drink.length - 6));
 
         event.target.closest('.pure-menu-item').remove();
 
-        for(let i = 0; i < tbrArray.length; i++) {
-            if(tbrArray[i].drinkName === drinkName) {
+        for (let i = 0; i < tbrArray.length; i++) {
+            if (tbrArray[i].drinkName === drinkName) {
                 tbrArray.splice(i, 1);
             }
         }
         saveTbrArray();
-     } 
+    }
 };
 
 /*
