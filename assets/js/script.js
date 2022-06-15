@@ -153,7 +153,8 @@ function renderTBRList(){
 
         TBREl.classList = 'card grey darken-1 card-content white-text';
         TBREl.textContent = bookname + "/" + drink;
-        deleteButtonEl.textContent = "Delete";
+        deleteButtonEl.classList = 'small material-icons';
+        deleteButtonEl.textContent = "delete";
         TBREl.appendChild(deleteButtonEl);
         
         saveTbrArray();
