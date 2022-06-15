@@ -11,7 +11,7 @@
 ## Usage
 ### This application is used to search for books and to discover new drinks to pair with the books. The user can also store book titles in the To Be Read list that saves to the page and persists. 
 
-### This image show the site: 
+### This image shows the site: 
 #### ![Screen Shot of Boozy Books](./assets/images/screenshot_one.png)
 
 ## Credits
