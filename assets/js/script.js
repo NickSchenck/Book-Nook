@@ -97,7 +97,7 @@ function renderSearchResults(displayObj) {
     let bookchoiceEl = document.createElement('button');
 
     bookchoiceEl.textContent = 'Add Book to To Be Read List';
-    bookchoiceEl.setAttribute('class', 'add_book');
+    bookchoiceEl.setAttribute('class', 'waves-effect waves-light btn');
 
 
     let bookTitleEl = document.createElement("h3");
