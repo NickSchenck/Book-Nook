@@ -223,8 +223,7 @@ async function callApiPromise(bookTitle) {
         }
 
     } catch (error) {
-        console.log("error in callPromiseApi " + error);
-        alert('Do not drink before the search');
+        console.log("Do not drink before the search " + error);
     }
 };
 
