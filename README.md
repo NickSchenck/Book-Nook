@@ -11,7 +11,7 @@
 ## Usage
 ### This application is used to search for books and to discover new drinks to pair with the books. The user can also store book titles in the To Be Read list that saves to the page and persists. 
 
-### These images show the site: 
+### This image show the site: 
 #### ![Screen Shot of Boozy Books](./assets/images/screenshot_one.png)
 
 ## Credits
@@ -21,7 +21,7 @@
 #### Loi Tran's GitHub portfolio can be found here: https://github.com/LoiT1020 
 #### Kristy Nerhaugen's GitHub portfolio can be found here: https://github.com/KristyNerhaugen 
 
-### This site was created using what we have learned in the BootCamp Spot modules and BootCamp classes. We used the Google Books API (https://developers.google.com/books) to populate book information. We used the Cocktail DB API (https://www.thecocktaildb.com/api/json/v1/1/random.php) to populate drink information. 
+### This site was created using what we have learned in the BootCamp Spot modules and BootCamp classes. We used the Google Books API (https://developers.google.com/books) to populate book information. We used the Cocktail DB API (https://www.thecocktaildb.com/api.php) to populate drink information. 
 
 ## License 
 ### n/a 
