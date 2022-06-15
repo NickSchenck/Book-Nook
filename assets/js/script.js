@@ -56,7 +56,7 @@ function tbrEventHandler(event) {
 
         let TBREl = document.createElement('li');
 
-        TBREl.classList = 'card grey darken-1';
+        TBREl.classList = 'card grey darken-1 card-content white-text';
         TBREl.textContent = bookname.textContent + '/' + drink;
 
 
@@ -72,7 +72,8 @@ function tbrEventHandler(event) {
 
         //delete button
         var deleteButtonEl = document.createElement("button");
-        deleteButtonEl.textContent = "Delete";
+        deleteButtonEl.classList = 'small material-icons';
+        deleteButtonEl.textContent = "delete";
         TBREl.appendChild(deleteButtonEl);
 
         saveTbrArray();
@@ -96,7 +97,7 @@ function renderSearchResults(displayObj) {
     let bookchoiceEl = document.createElement('button');
 
     bookchoiceEl.textContent = 'Add Book to To Be Read List';
-    bookchoiceEl.setAttribute('class', 'add_book');
+    bookchoiceEl.setAttribute('class', 'waves-effect waves-light btn');
 
 
     let bookTitleEl = document.createElement("h3");
@@ -150,9 +151,10 @@ function renderTBRList(){
         let TBREl = document.createElement('li');
         let deleteButtonEl = document.createElement("button");
 
-        TBREl.classList = 'card grey darken-1';
+        TBREl.classList = 'card grey darken-1 card-content white-text';
         TBREl.textContent = bookname + "/" + drink;
-        deleteButtonEl.textContent = "Delete";
+        deleteButtonEl.classList = 'small material-icons';
+        deleteButtonEl.textContent = "delete";
         TBREl.appendChild(deleteButtonEl);
         
         saveTbrArray();
