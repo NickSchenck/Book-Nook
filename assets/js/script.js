@@ -31,7 +31,7 @@ window.onload = function() {
 
 function formSubmitHandler(event) {
     let tag = event.target;
-    let inputEl = document.querySelector(".center-align");
+    let inputEl = document.querySelector("#input");
     displayArray = [];
 
     if (tag.id === "submitButton") {
@@ -56,7 +56,7 @@ function tbrEventHandler(event) {
 
         let TBREl = document.createElement('li');
 
-        TBREl.classList.add('card grey darken-1');
+        TBREl.classList = 'card grey darken-1';
         TBREl.textContent = bookname.textContent + '/' + drink;
 
 
@@ -74,21 +74,6 @@ function tbrEventHandler(event) {
         var deleteButtonEl = document.createElement("button");
         deleteButtonEl.textContent = "Delete";
         TBREl.appendChild(deleteButtonEl);
-
-
-        ListEl.addEventListener('click',function(event){
-            if(event.target.tagName === "BUTTON") {
-                event.target.closest('.card grey darken-1').remove();
-
-                // removes from tbr array
-                for(let i = 0; i < tbrArray.length; i++) {
-                    if(tbrArray[i].drinkName === drink.textContent) {
-                        tbrArray.splice(i, 1);
-                    }
-                }
-                saveTbrArray();
-            }
-        });
 
         saveTbrArray();
     }
@@ -165,7 +150,7 @@ function renderTBRList(){
         let TBREl = document.createElement('li');
         let deleteButtonEl = document.createElement("button");
 
-        TBREl.classList.add('card grey darken-1');
+        TBREl.classList = 'card grey darken-1';
         TBREl.textContent = bookname + "/" + drink;
         deleteButtonEl.textContent = "Delete";
         TBREl.appendChild(deleteButtonEl);
@@ -199,7 +184,7 @@ function renderTBRItem(event) {
         let drink = event.target.parentNode.textContent.split("/")[1];
         let drinkName = drink.substr(0, (drink.length - 6));
 
-        event.target.closest('.pure-menu-item').remove();
+        event.target.closest('.card').remove();
 
         for(let i = 0; i < tbrArray.length; i++) {
             if(tbrArray[i].drinkName === drinkName) {
