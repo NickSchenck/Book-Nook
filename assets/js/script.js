@@ -56,7 +56,7 @@ function tbrEventHandler(event) {
 
         let TBREl = document.createElement('li');
 
-        TBREl.classList = 'card grey darken-1';
+        TBREl.classList = 'card grey darken-1 card-content white-text';
         TBREl.textContent = bookname.textContent + '/' + drink;
 
 
@@ -151,7 +151,7 @@ function renderTBRList(){
         let TBREl = document.createElement('li');
         let deleteButtonEl = document.createElement("button");
 
-        TBREl.classList = 'card grey darken-1';
+        TBREl.classList = 'card grey darken-1 card-content white-text';
         TBREl.textContent = bookname + "/" + drink;
         deleteButtonEl.textContent = "Delete";
         TBREl.appendChild(deleteButtonEl);
