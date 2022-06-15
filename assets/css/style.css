@@ -1,0 +1,35 @@
+:root{
+    --primary-color: #6d8b74;
+    --secondary-color: #5f7161;
+    --tertiary-color: #efead8;
+    --quaternary-color: #d0c9c0;
+}
+body{
+    background: var(--secondary-color);
+    font-family: Verdana, Sitka, Sylfaen, sans-serif;
+}
+header{
+    background: var(--quaternary-color);
+    font-size: 3.5rem;
+    padding: 5px;
+}
+.container{
+    background: var(--tertiary-color);
+    padding: 1%;
+    border: 2px solid var(--tertiary-color);
+    border-radius: 5px;
+}
+.row{
+    padding: 1%;
+}
+.col{
+    border: 4px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 2%;
+}
+.btn{
+    background: var(--tertiary-color);
+}
+.card{
+    background: var(--primary-color);
+}
