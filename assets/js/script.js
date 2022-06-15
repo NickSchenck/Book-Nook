@@ -72,7 +72,8 @@ function tbrEventHandler(event) {
 
         //delete button
         var deleteButtonEl = document.createElement("button");
-        deleteButtonEl.textContent = "Delete";
+        deleteButtonEl.classList = 'small material-icons';
+        deleteButtonEl.textContent = "delete";
         TBREl.appendChild(deleteButtonEl);
 
         saveTbrArray();
